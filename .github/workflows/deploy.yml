@@ -1,0 +1,78 @@
+name: Deploy Frontend to Production
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build frontend
+        run: npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
+          VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
+      
+      - name: Deploy to remote server via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASS }}
+          script: |
+            set -e
+            
+            DEPLOY_DIR="/var/www/venturemate"
+            TEMP_DIR="/tmp/venturemate-frontend-deploy"
+            
+            # Create directories if not exist
+            mkdir -p "$DEPLOY_DIR"
+            mkdir -p "$TEMP_DIR"
+            
+            echo "Cleaning temp directory..."
+            rm -rf "$TEMP_DIR"/*
+            
+            echo "Deployment ready. Files will be synced from GitHub Actions artifact."
+            
+      - name: Copy files to server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASS }}
+          source: "dist/*"
+          target: "/var/www/venturemate"
+          strip_components: 1
+          rm: true
+          
+      - name: Reload nginx
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASS }}
+          script: |
+            echo "Frontend deployed to /var/www/venturemate"
+            
+            # Reload nginx to serve new files
+            nginx -t && nginx -s reload || {
+              echo "Nginx reload failed, trying systemctl..."
+              systemctl reload nginx || true
+            }
+            
+            echo "Frontend deployment completed!"
