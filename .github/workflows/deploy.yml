@@ -38,9 +38,9 @@ jobs:
       - name: Copy files to server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASS }}
+          host: 139.162.170.220
+          username: root
+          password: startupos.2026
           source: "dist/*"
           target: "/var/www/venturemate"
           strip_components: 1
@@ -49,9 +49,9 @@ jobs:
       - name: Reload Caddy
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASS }}
+          host: 139.162.170.220
+          username: root
+          password: startupos.2026
           script: |
             echo "Frontend deployed to /var/www/venturemate"
             
