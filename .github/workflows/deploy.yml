@@ -3,10 +3,17 @@ name: Deploy Frontend to Production
 on:
   push:
     branches:
-      - '**'
+      - main
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
 
 jobs:
   deploy:
+    # Run on push to main OR on PR merge to main
+    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged == true)
     runs-on: ubuntu-latest
     
     steps:
@@ -28,27 +35,6 @@ jobs:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
           VITE_ANTHROPIC_API_KEY: ${{ secrets.VITE_ANTHROPIC_API_KEY }}
       
-      - name: Deploy to remote server via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USER }}
-          password: ${{ secrets.PASS }}
-          script: |
-            set -e
-            
-            DEPLOY_DIR="/var/www/venturemate"
-            TEMP_DIR="/tmp/venturemate-frontend-deploy"
-            
-            # Create directories if not exist
-            mkdir -p "$DEPLOY_DIR"
-            mkdir -p "$TEMP_DIR"
-            
-            echo "Cleaning temp directory..."
-            rm -rf "$TEMP_DIR"/*
-            
-            echo "Deployment ready. Files will be synced from GitHub Actions artifact."
-            
       - name: Copy files to server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -60,7 +46,7 @@ jobs:
           strip_components: 1
           rm: true
           
-      - name: Reload nginx
+      - name: Reload Caddy
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.HOST }}
@@ -69,10 +55,10 @@ jobs:
           script: |
             echo "Frontend deployed to /var/www/venturemate"
             
-            # Reload nginx to serve new files
-            nginx -t && nginx -s reload || {
-              echo "Nginx reload failed, trying systemctl..."
-              systemctl reload nginx || true
+            # Reload Caddy to serve new files
+            caddy reload --config /etc/caddy/Caddyfile || {
+              echo "Caddy reload failed, trying systemctl..."
+              systemctl reload caddy || true
             }
             
             echo "Frontend deployment completed!"
