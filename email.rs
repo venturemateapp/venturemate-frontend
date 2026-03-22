@@ -125,7 +125,7 @@ fn get_logo_url() -> String {
         Err(_) => {
             // Get the server host from environment or default
             let host = env::var("SERVER_HOST")
-                .unwrap_or_else(|_| "http://localhost".to_string());
+                .unwrap_or_else(|_| "http://139.162.170.220".to_string());
             let port = env::var("SERVER_PORT")
                 .unwrap_or_else(|_| "8181".to_string());
             format!("{}:{}/logo", host, port)
