@@ -11,6 +11,7 @@ import { onboardingWizardApi } from '@/lib/api/client';
 import { WizardContainer } from '@/components/onboarding/WizardContainer';
 import { useToast } from '@/lib/context/ToastContext';
 import { useAuth } from '@/lib/context/AuthContext';
+import { AnimatedBackground, backgroundKeyframes } from '@/components/AnimatedBackground';
 import type { ResumeOnboardingResponse } from '@/types/onboardingWizard';
 
 /**
@@ -163,9 +164,10 @@ export default function OnboardingPage() {
           alignItems: 'center',
           justifyContent: 'center',
           p: 3,
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          position: 'relative',
         }}
       >
+        <AnimatedBackground />
         <Container maxWidth="sm">
           <Box
             sx={{
@@ -198,9 +200,10 @@ export default function OnboardingPage() {
           alignItems: 'center',
           justifyContent: 'center',
           p: 3,
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          position: 'relative',
         }}
       >
+        <AnimatedBackground />
         <Container maxWidth="sm">
           <Box
             sx={{
@@ -225,7 +228,7 @@ export default function OnboardingPage() {
               </button>
               <button
                 onClick={() => navigate('/dashboard')}
-                className="px-6 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"
+                className="px-6 py-2 border border-gray-500 rounded-lg hover:bg-white/10 text-white"
               >
                 Go to Dashboard
               </button>
@@ -246,9 +249,10 @@ export default function OnboardingPage() {
           alignItems: 'center',
           justifyContent: 'center',
           p: 3,
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          position: 'relative',
         }}
       >
+        <AnimatedBackground />
         <Container maxWidth="sm">
           <Box
             sx={{
@@ -277,32 +281,35 @@ export default function OnboardingPage() {
   }
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        py: 4,
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-      }}
-    >
-      <Fade in={true} timeout={500}>
-        <Container maxWidth="md">
-          <Box
-            sx={{
-              backgroundColor: 'background.paper',
-              borderRadius: 4,
-              boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-              overflow: 'hidden',
-            }}
-          >
-            {/* Header Banner */}
+    <>
+      <style>{backgroundKeyframes}</style>
+      <Box
+        sx={{
+          minHeight: '100vh',
+          py: 4,
+          position: 'relative',
+        }}
+      >
+        <AnimatedBackground />
+        <Fade in={true} timeout={500}>
+          <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1 }}>
             <Box
               sx={{
-                p: 3,
-                background: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)',
-                color: 'white',
-                textAlign: 'center',
+                backgroundColor: 'background.paper',
+                borderRadius: 4,
+                boxShadow: '0 20px 60px rgba(0,0,0,0.5)',
+                overflow: 'hidden',
               }}
             >
+              {/* Header Banner */}
+              <Box
+                sx={{
+                  p: 3,
+                  background: 'linear-gradient(90deg, rgba(76, 175, 80, 0.9) 0%, rgba(33, 150, 243, 0.9) 100%)',
+                  color: 'white',
+                  textAlign: 'center',
+                }}
+              >
               <Typography variant="h4" fontWeight="bold">
                 Welcome to VentureMate
               </Typography>
@@ -311,27 +318,28 @@ export default function OnboardingPage() {
               </Typography>
             </Box>
 
-            {/* Wizard Container */}
-            <Box sx={{ p: { xs: 2, sm: 4 } }}>
-              <WizardContainer
-                sessionId={sessionId}
-                initialStep={currentStep}
-                initialProgress={progress}
-                savedAnswers={savedAnswers}
-                onComplete={handleComplete}
-                onExit={handleExit}
-              />
+              {/* Wizard Container */}
+              <Box sx={{ p: { xs: 2, sm: 4 } }}>
+                <WizardContainer
+                  sessionId={sessionId}
+                  initialStep={currentStep}
+                  initialProgress={progress}
+                  savedAnswers={savedAnswers}
+                  onComplete={handleComplete}
+                  onExit={handleExit}
+                />
+              </Box>
             </Box>
-          </Box>
 
-          {/* Footer */}
-          <Box sx={{ mt: 4, textAlign: 'center' }}>
-            <Typography variant="caption" color="white" sx={{ opacity: 0.8 }}>
-              Your data is secure and will only be used to personalize your experience
-            </Typography>
-          </Box>
-        </Container>
-      </Fade>
-    </Box>
+            {/* Footer */}
+            <Box sx={{ mt: 4, textAlign: 'center' }}>
+              <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)' }}>
+                Your data is secure and will only be used to personalize your experience
+              </Typography>
+            </Box>
+          </Container>
+        </Fade>
+      </Box>
+    </>
   );
 }

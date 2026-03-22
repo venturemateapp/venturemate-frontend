@@ -133,26 +133,56 @@ export const CountrySelect: React.FC<CountrySelectProps> = ({
         <Box
           sx={{
             p: 2,
-            backgroundColor: 'grey.50',
+            backgroundColor: 'rgba(30, 30, 40, 0.8)',
             borderRadius: 2,
             border: 1,
-            borderColor: 'divider',
+            borderColor: 'rgba(255, 255, 255, 0.1)',
+            backdropFilter: 'blur(10px)',
           }}
         >
-          <Typography variant="subtitle2" gutterBottom>
+          <Typography variant="subtitle2" gutterBottom sx={{ color: 'white', fontWeight: 600 }}>
             Selected: {selectedCountryData.flag_emoji} {selectedCountryData.name}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
             Currency: {selectedCountryData.currency_symbol} {selectedCountryData.currency}
           </Typography>
           {selectedCountryData.supports_banking && (
-            <Chip size="small" label="Banking Available" color="success" sx={{ mt: 1, mr: 1 }} />
+            <Chip 
+              size="small" 
+              label="Banking Available" 
+              sx={{ 
+                mt: 1, 
+                mr: 1, 
+                backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                color: '#4CAF50',
+                border: '1px solid rgba(76, 175, 80, 0.3)',
+              }} 
+            />
           )}
           {selectedCountryData.supports_investor_matching && (
-            <Chip size="small" label="Investor Matching" color="primary" sx={{ mt: 1, mr: 1 }} />
+            <Chip 
+              size="small" 
+              label="Investor Matching" 
+              sx={{ 
+                mt: 1, 
+                mr: 1, 
+                backgroundColor: 'rgba(33, 150, 243, 0.2)',
+                color: '#2196F3',
+                border: '1px solid rgba(33, 150, 243, 0.3)',
+              }} 
+            />
           )}
           {selectedCountryData.supports_marketplace && (
-            <Chip size="small" label="Marketplace" color="info" sx={{ mt: 1 }} />
+            <Chip 
+              size="small" 
+              label="Marketplace" 
+              sx={{ 
+                mt: 1, 
+                backgroundColor: 'rgba(156, 39, 176, 0.2)',
+                color: '#9C27B0',
+                border: '1px solid rgba(156, 39, 176, 0.3)',
+              }} 
+            />
           )}
         </Box>
       )}

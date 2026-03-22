@@ -110,14 +110,14 @@ export const BusinessContextForm: React.FC<BusinessContextFormProps> = ({
         alignItems: 'center',
         py: 1.5,
         px: 2,
-        backgroundColor: expanded[section] ? 'primary.50' : 'grey.50',
+        backgroundColor: expanded[section] ? 'rgba(76, 175, 80, 0.15)' : 'rgba(30, 30, 40, 0.6)',
         borderRadius: 2,
         cursor: 'pointer',
         border: 1,
-        borderColor: expanded[section] ? 'primary.main' : 'divider',
+        borderColor: expanded[section] ? 'rgba(76, 175, 80, 0.5)' : 'rgba(255, 255, 255, 0.1)',
         transition: 'all 0.2s ease',
         '&:hover': {
-          backgroundColor: 'grey.100',
+          backgroundColor: expanded[section] ? 'rgba(76, 175, 80, 0.2)' : 'rgba(40, 40, 55, 0.7)',
         },
       }}
     >

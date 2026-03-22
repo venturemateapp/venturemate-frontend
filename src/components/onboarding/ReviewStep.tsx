@@ -79,9 +79,9 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
           severity="info"
           icon={<Info />}
           onClose={() => setShowAiDisclaimer(false)}
-          sx={{ backgroundColor: 'info.50' }}
+          sx={{ backgroundColor: 'rgba(33, 150, 243, 0.15)', border: '1px solid rgba(33, 150, 243, 0.3)', color: 'white' }}
         >
-          <Typography variant="body2">
+          <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.9)' }}>
             Our AI will analyze your answers to create a personalized startup blueprint. 
             This takes about <strong>30 seconds</strong>.
           </Typography>
@@ -91,12 +91,12 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
       {/* Summary Cards */}
       <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         {/* Step 1: Country */}
-        <Card variant="outlined" sx={{ position: 'relative' }}>
+        <Card variant="outlined" sx={{ position: 'relative', backgroundColor: 'rgba(30, 30, 40, 0.6)', borderColor: 'rgba(255, 255, 255, 0.1)' }}>
           <CardContent>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <CheckCircle color="success" fontSize="small" />
-                <Typography variant="subtitle2" color="text.secondary">
+                <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                   Step 1: Location
                 </Typography>
               </Box>
@@ -114,7 +114,7 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
             </Typography>
             {answers.country?.secondary_countries && answers.country.secondary_countries.length > 0 && (
               <Box sx={{ mt: 1 }}>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.6)' }}>
                   Also operating in:
                 </Typography>
                 <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap', mt: 0.5 }}>
@@ -128,12 +128,12 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
         </Card>
 
         {/* Step 2: Founder Type */}
-        <Card variant="outlined" sx={{ position: 'relative' }}>
+        <Card variant="outlined" sx={{ position: 'relative', backgroundColor: 'rgba(30, 30, 40, 0.6)', borderColor: 'rgba(255, 255, 255, 0.1)' }}>
           <CardContent>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <CheckCircle color="success" fontSize="small" />
-                <Typography variant="subtitle2" color="text.secondary">
+                <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                   Step 2: Team Structure
                 </Typography>
               </Box>
@@ -167,12 +167,12 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
         </Card>
 
         {/* Step 3: Business Idea */}
-        <Card variant="outlined" sx={{ position: 'relative' }}>
+        <Card variant="outlined" sx={{ position: 'relative', backgroundColor: 'rgba(30, 30, 40, 0.6)', borderColor: 'rgba(255, 255, 255, 0.1)' }}>
           <CardContent>
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <CheckCircle color="success" fontSize="small" />
-                <Typography variant="subtitle2" color="text.secondary">
+                <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                   Step 3: Business Idea
                 </Typography>
               </Box>
@@ -185,7 +185,7 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
                 Edit
               </GradientButton>
             </Box>
-            <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+            <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'rgba(255, 255, 255, 0.8)' }}>
               "{truncateText(answers.business_idea?.business_idea || '', 200)}"
             </Typography>
           </CardContent>
@@ -195,12 +195,12 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
         {(answers.business_context?.industry?.length ||
           answers.business_context?.target_customers ||
           answers.business_context?.revenue_model?.length) && (
-          <Card variant="outlined" sx={{ position: 'relative' }}>
+          <Card variant="outlined" sx={{ position: 'relative', backgroundColor: 'rgba(30, 30, 40, 0.6)', borderColor: 'rgba(255, 255, 255, 0.1)' }}>
             <CardContent>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <CheckCircle color="success" fontSize="small" />
-                  <Typography variant="subtitle2" color="text.secondary">
+                  <Typography variant="subtitle2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                     Step 4: Additional Context
                   </Typography>
                 </Box>
@@ -294,8 +294,8 @@ export const ReviewStep: React.FC<ReviewStepProps> = ({
 
       {/* Processing note */}
       {isSaving && (
-        <Alert severity="info" sx={{ mt: 2 }}>
-          <Typography variant="body2">
+        <Alert severity="info" sx={{ mt: 2, backgroundColor: 'rgba(33, 150, 243, 0.15)', border: '1px solid rgba(33, 150, 243, 0.3)', color: 'white' }}>
+          <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.9)' }}>
             Our AI is analyzing your answers and creating your personalized startup blueprint. 
             You'll be redirected to your dashboard shortly...
           </Typography>

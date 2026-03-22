@@ -255,11 +255,11 @@ export const WizardContainer: React.FC<WizardContainerProps> = ({
             {currentStep === 5 ? 'Review' : 'Let\'s set up your startup'}
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
               {progress}% complete
             </Typography>
             {isSaving && (
-              <Save sx={{ fontSize: 16, color: 'text.secondary', animation: 'pulse 1s infinite' }} />
+              <Save sx={{ fontSize: 16, color: 'rgba(255, 255, 255, 0.7)', animation: 'pulse 1s infinite' }} />
             )}
           </Box>
         </Box>
@@ -270,7 +270,7 @@ export const WizardContainer: React.FC<WizardContainerProps> = ({
           sx={{
             height: 8,
             borderRadius: 4,
-            backgroundColor: 'grey.200',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
             '& .MuiLinearProgress-bar': {
               borderRadius: 4,
               background: 'linear-gradient(90deg, #667eea 0%, #764ba2 100%)',
@@ -287,7 +287,7 @@ export const WizardContainer: React.FC<WizardContainerProps> = ({
                 width: 12,
                 height: 12,
                 borderRadius: '50%',
-                backgroundColor: step < currentStep ? 'success.main' : step === currentStep ? 'primary.main' : 'grey.300',
+                backgroundColor: step < currentStep ? 'success.main' : step === currentStep ? 'primary.main' : 'rgba(255, 255, 255, 0.2)',
                 transition: 'all 0.3s ease',
               }}
             />
@@ -298,7 +298,7 @@ export const WizardContainer: React.FC<WizardContainerProps> = ({
       {/* Error message */}
       {error && (
         <Fade in={true}>
-          <Alert severity="error" sx={{ mb: 3 }} onClose={() => setError(null)}>
+          <Alert severity="error" sx={{ mb: 3, backgroundColor: 'rgba(244, 67, 54, 0.15)', border: '1px solid rgba(244, 67, 54, 0.3)', color: 'white' }} onClose={() => setError(null)}>
             {error}
           </Alert>
         </Fade>
@@ -311,11 +311,11 @@ export const WizardContainer: React.FC<WizardContainerProps> = ({
             <Typography variant="h5" fontWeight="medium" gutterBottom>
               {stepContent.title}
             </Typography>
-            <Typography variant="body1" color="text.secondary">
+            <Typography variant="body1" sx={{ color: 'rgba(255, 255, 255, 0.8)' }}>
               {stepContent.description}
             </Typography>
             {stepContent.helper_text && (
-              <Typography variant="body2" color="text.secondary" sx={{ mt: 1, fontStyle: 'italic' }}>
+              <Typography variant="body2" sx={{ mt: 1, fontStyle: 'italic', color: 'rgba(255, 255, 255, 0.6)' }}>
                 {stepContent.helper_text}
               </Typography>
             )}

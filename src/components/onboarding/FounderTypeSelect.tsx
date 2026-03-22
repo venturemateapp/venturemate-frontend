@@ -216,13 +216,13 @@ export const FounderTypeSelect: React.FC<FounderTypeSelectProps> = ({
               sx={{
                 p: 4,
                 textAlign: 'center',
-                backgroundColor: 'grey.50',
+                backgroundColor: 'rgba(30, 30, 40, 0.6)',
                 borderRadius: 2,
                 border: 1,
-                borderColor: 'divider',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
               }}
             >
-              <Typography color="text.secondary">
+              <Typography sx={{ color: 'rgba(255, 255, 255, 0.7)' }}>
                 Add your co-founders or skip for now. You can invite them later.
               </Typography>
             </Box>
@@ -233,10 +233,10 @@ export const FounderTypeSelect: React.FC<FounderTypeSelectProps> = ({
                   key={index}
                   sx={{
                     p: 2,
-                    backgroundColor: 'grey.50',
+                    backgroundColor: 'rgba(30, 30, 40, 0.6)',
                     borderRadius: 2,
                     border: 1,
-                    borderColor: 'divider',
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
                   }}
                 >
                   <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>

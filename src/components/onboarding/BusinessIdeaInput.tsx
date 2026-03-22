@@ -121,9 +121,9 @@ export const BusinessIdeaInput: React.FC<BusinessIdeaInputProps> = ({
         helperText={error}
         sx={{
           '& .MuiOutlinedInput-root': {
-            backgroundColor: 'grey.50',
+            backgroundColor: 'rgba(30, 30, 40, 0.6)',
             '& fieldset': {
-              borderColor: charCount >= MIN_LENGTH ? 'success.main' : 'grey.300',
+              borderColor: charCount >= MIN_LENGTH ? 'success.main' : 'rgba(255, 255, 255, 0.2)',
             },
             '&:hover fieldset': {
               borderColor: 'primary.main',
@@ -162,10 +162,10 @@ export const BusinessIdeaInput: React.FC<BusinessIdeaInputProps> = ({
         <Box
           sx={{
             p: 2,
-            backgroundColor: 'grey.50',
+            backgroundColor: 'rgba(30, 30, 40, 0.6)',
             borderRadius: 2,
             border: 1,
-            borderColor: 'divider',
+            borderColor: 'rgba(255, 255, 255, 0.1)',
           }}
         >
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
@@ -255,7 +255,7 @@ export const BusinessIdeaInput: React.FC<BusinessIdeaInputProps> = ({
       </Collapse>
 
       {/* Tips */}
-      <Alert severity="info" icon={false} sx={{ backgroundColor: 'grey.50' }}>
+      <Alert severity="info" icon={false} sx={{ backgroundColor: 'rgba(30, 30, 40, 0.6)', border: '1px solid rgba(255, 255, 255, 0.1)', color: 'white' }}>
         <Typography variant="body2" fontWeight="medium" gutterBottom>
           💡 Tips for a great business idea description:
         </Typography>

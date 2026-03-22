@@ -38,12 +38,10 @@ export default function VerifyEmailPage() {
         setStatus('success');
         setMessage(response.message || 'Email verified successfully!');
         showToast({ message: 'Email verified!', type: 'success' });
-      } catch (error) {
+      } catch {
         setStatus('error');
         setMessage(
-          error instanceof Error 
-            ? error.message 
-            : 'Failed to verify email. The link may have expired.'
+          'Failed to verify email. The link may have expired.'
         );
         showToast({ 
           message: 'Verification failed. Please try again.', 

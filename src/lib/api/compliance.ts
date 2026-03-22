@@ -2,7 +2,7 @@
 // In a real implementation, apiRequest would be exported from client.ts
 // For now, we define a local helper
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://139.162.170.220:8080/api/v1';
 
 class ApiError extends Error {
   constructor(
