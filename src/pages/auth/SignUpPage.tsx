@@ -381,7 +381,7 @@ export default function SignUpPage() {
             {/* Back to Home */}
             <Box sx={{ mt: 3, textAlign: 'center' }}>
               <Link to="/" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', fontSize: '0.875rem' }}>
-                ← Back to home
+                Back to home
               </Link>
             </Box>
           </Paper>

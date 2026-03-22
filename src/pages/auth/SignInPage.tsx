@@ -198,7 +198,7 @@ export default function SignInPage() {
                   fontSize: '0.875rem',
                 }}
               >
-                ← Back to home
+                Back to home
               </Link>
             </Box>
           </Paper>

@@ -126,7 +126,7 @@ export default function ForgotPasswordPage() {
                     to="/signin"
                     style={{ color: '#4CAF50', textDecoration: 'none', fontSize: '0.875rem' }}
                   >
-                    ← Back to sign in
+                    Back to sign in
                   </Link>
                 </Box>
               </>
