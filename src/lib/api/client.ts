@@ -1140,23 +1140,27 @@ import type {
 
 export const onboardingWizardApi = {
   // Start onboarding wizard
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding/wizard)
   startWizard: (source?: string) =>
-    apiRequest<StartOnboardingResponse>('/onboarding/wizard/start', {
+    apiRequest<StartOnboardingResponse>('/onboarding-wizard/start', {
       method: 'POST',
       body: JSON.stringify({ source }),
     }),
 
   // Resume existing onboarding session
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding/wizard)
   resumeWizard: (sessionId: string) =>
-    apiRequest<ResumeOnboardingResponse>(`/onboarding/wizard/resume?session_id=${sessionId}`),
+    apiRequest<ResumeOnboardingResponse>(`/onboarding-wizard/resume?session_id=${sessionId}`),
 
   // Get step content
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding/wizard)
   getStepContent: (stepNumber: number, sessionId: string) =>
-    apiRequest<StepContent>(`/onboarding/wizard/step/${stepNumber}?session_id=${sessionId}`),
+    apiRequest<StepContent>(`/onboarding-wizard/step/${stepNumber}?session_id=${sessionId}`),
 
   // Save step 1: Country selection
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding/wizard)
   saveCountrySelection: (sessionId: string, answers: CountrySelectionAnswers) =>
-    apiRequest<SaveStepResponse>('/onboarding/wizard/step', {
+    apiRequest<SaveStepResponse>('/onboarding-wizard/step', {
       method: 'POST',
       body: JSON.stringify({
         session_id: sessionId,
@@ -1166,8 +1170,9 @@ export const onboardingWizardApi = {
     }),
 
   // Save step 2: Founder type
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding/wizard)
   saveFounderType: (sessionId: string, answers: FounderTypeAnswers) =>
-    apiRequest<SaveStepResponse>('/onboarding/wizard/step', {
+    apiRequest<SaveStepResponse>('/onboarding-wizard/step', {
       method: 'POST',
       body: JSON.stringify({
         session_id: sessionId,
@@ -1177,8 +1182,9 @@ export const onboardingWizardApi = {
     }),
 
   // Save step 3: Business idea
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding/wizard)
   saveBusinessIdea: (sessionId: string, answers: BusinessIdeaAnswers) =>
-    apiRequest<SaveStepResponse>('/onboarding/wizard/step', {
+    apiRequest<SaveStepResponse>('/onboarding-wizard/step', {
       method: 'POST',
       body: JSON.stringify({
         session_id: sessionId,
@@ -1188,8 +1194,9 @@ export const onboardingWizardApi = {
     }),
 
   // Save step 4: Business context (optional)
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding/wizard)
   saveBusinessContext: (sessionId: string, answers: BusinessContextAnswers) =>
-    apiRequest<SaveStepResponse>('/onboarding/wizard/step', {
+    apiRequest<SaveStepResponse>('/onboarding-wizard/step', {
       method: 'POST',
       body: JSON.stringify({
         session_id: sessionId,
@@ -1207,8 +1214,9 @@ export const onboardingWizardApi = {
     }),
 
   // Save step 5: Review & confirm
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding/wizard)
   saveReviewConfirmation: (sessionId: string, answers: ReviewAnswers) =>
-    apiRequest<SaveStepResponse>('/onboarding/wizard/step', {
+    apiRequest<SaveStepResponse>('/onboarding-wizard/step', {
       method: 'POST',
       body: JSON.stringify({
         session_id: sessionId,
@@ -1218,30 +1226,35 @@ export const onboardingWizardApi = {
     }),
 
   // Complete onboarding
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding/wizard)
   completeWizard: (sessionId: string) =>
-    apiRequest<CompleteOnboardingResponse>('/onboarding/wizard/complete', {
+    apiRequest<CompleteOnboardingResponse>('/onboarding-wizard/complete', {
       method: 'POST',
       body: JSON.stringify({ session_id: sessionId }),
     }),
 
   // Get supported countries
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding)
   getSupportedCountries: () =>
-    apiRequest<CountryResponse[]>('/onboarding/countries'),
+    apiRequest<CountryResponse[]>('/onboarding-wizard/countries'),
 
   // Invite co-founder
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding)
   inviteCofounder: (data: InviteCofounderRequest) =>
-    apiRequest<FounderInvitationResponse>('/onboarding/invite-cofounder', {
+    apiRequest<FounderInvitationResponse>('/onboarding-wizard/invite-cofounder', {
       method: 'POST',
       body: JSON.stringify(data),
     }),
 
   // Get co-founders for startup
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding)
   getCofounders: (startupId: string) =>
-    apiRequest<FounderResponse[]>(`/onboarding/cofounders?startup_id=${startupId}`),
+    apiRequest<FounderResponse[]>(`/onboarding-wizard/cofounders?startup_id=${startupId}`),
 
   // Track analytics event
+  // FIXED: Backend uses /onboarding-wizard (not /onboarding/wizard)
   trackEvent: (data: TrackOnboardingEventRequest) =>
-    apiRequest<{ tracked: boolean }>('/onboarding/wizard/track', {
+    apiRequest<{ tracked: boolean }>('/onboarding-wizard/track', {
       method: 'POST',
       body: JSON.stringify(data),
     }),

@@ -41,6 +41,7 @@ import AIChatPage from '@/pages/dashboard/AIChatPage';
 import SettingsPage from '@/pages/dashboard/SettingsPage';
 import AuthCallbackPage from '@/pages/auth/AuthCallbackPage';
 import AuthCodeErrorPage from '@/pages/auth/AuthCodeErrorPage';
+import VerifyEmailPage from '@/pages/auth/VerifyEmailPage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -190,6 +191,7 @@ function App() {
                 <Route path="/signup" element={<SignUpPage />} />
                 <Route path="/forgot-password" element={<ForgotPasswordPage />} />
                 <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
+                <Route path="/auth/verify-email" element={<VerifyEmailPage />} />
                 <Route path="/auth/callback" element={<AuthCallbackPage />} />
                 <Route path="/auth/auth-code-error" element={<AuthCodeErrorPage />} />
                 

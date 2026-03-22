@@ -10,6 +10,8 @@ import {
   InputAdornment,
   CircularProgress,
   Fade,
+  Alert,
+  Button,
 } from '@mui/material';
 import { GradientButton } from '@/components/GradientButton';
 import {
@@ -17,10 +19,11 @@ import {
   VisibilityOff,
   Email,
   Lock,
+  MarkEmailRead,
 } from '@mui/icons-material';
 import { useAuth } from '@/lib/context/AuthContext';
 import { useToast } from '@/lib/context/ToastContext';
-import { ApiError } from '@/lib/api/client';
+import { ApiError, authApi } from '@/lib/api/client';
 
 export default function SignInPage() {
   const navigate = useNavigate();
@@ -31,10 +34,13 @@ export default function SignInPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isResending, setIsResending] = useState(false);
+  const [showVerificationBanner, setShowVerificationBanner] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+    setShowVerificationBanner(false);
 
     try {
       const { error } = await signIn(email, password);
@@ -45,6 +51,10 @@ export default function SignInPage() {
       navigate('/dashboard');
     } catch (error) {
       if (error instanceof ApiError) {
+        // Check if error is about email not verified
+        if (error.code === 'FORBIDDEN' && error.message?.toLowerCase().includes('verify')) {
+          setShowVerificationBanner(true);
+        }
         showToast({ message: error.message, type: 'error' });
       } else if (error instanceof Error) {
         showToast({ message: error.message, type: 'error' });
@@ -53,6 +63,38 @@ export default function SignInPage() {
       }
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    if (!email) {
+      showToast({ message: 'Please enter your email address', type: 'error' });
+      return;
+    }
+
+    setIsResending(true);
+    try {
+      const response = await authApi.resendVerification(email);
+      if (response.verified) {
+        showToast({ message: 'Your email is already verified! Please try signing in.', type: 'success' });
+        setShowVerificationBanner(false);
+      } else {
+        showToast({ 
+          message: 'Verification email sent! Please check your inbox.', 
+          type: 'success' 
+        });
+      }
+    } catch (error) {
+      if (error instanceof ApiError) {
+        showToast({ message: error.message, type: 'error' });
+      } else {
+        showToast({ 
+          message: 'Failed to resend verification email. Please try again later.', 
+          type: 'error' 
+        });
+      }
+    } finally {
+      setIsResending(false);
     }
   };
 
@@ -95,6 +137,53 @@ export default function SignInPage() {
             <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
               Welcome back! Sign in to continue your journey.
             </Typography>
+
+            {/* Email Verification Banner */}
+            {showVerificationBanner && (
+              <Fade in timeout={300}>
+                <Alert 
+                  severity="warning" 
+                  sx={{ 
+                    mb: 3, 
+                    textAlign: 'left',
+                    backgroundColor: 'rgba(255, 152, 0, 0.1)',
+                    border: '1px solid rgba(255, 152, 0, 0.3)',
+                    '& .MuiAlert-icon': {
+                      color: '#FF9800',
+                    },
+                  }}
+                  icon={<MarkEmailRead />}
+                >
+                  <Typography variant="body2" sx={{ mb: 1 }}>
+                    <strong>Email not verified</strong>
+                  </Typography>
+                  <Typography variant="body2" sx={{ mb: 2 }}>
+                    Please verify your email before logging in. Check your inbox for the verification link, or click below to resend.
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={handleResendVerification}
+                    disabled={isResending}
+                    sx={{
+                      background: 'linear-gradient(135deg, #FF9800 0%, #F57C00 100%)',
+                      color: 'white',
+                      borderRadius: 50,
+                      textTransform: 'none',
+                      fontWeight: 600,
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, #F57C00 0%, #E65100 100%)',
+                      },
+                    }}
+                  >
+                    {isResending ? (
+                      <CircularProgress size={16} sx={{ color: 'white', mr: 1 }} />
+                    ) : null}
+                    Resend Verification Email
+                  </Button>
+                </Alert>
+              </Fade>
+            )}
 
             {/* Form */}
             <Box component="form" onSubmit={handleSubmit}>
