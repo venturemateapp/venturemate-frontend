@@ -358,7 +358,7 @@ export class AIService {
     const startTime = Date.now();
 
     try {
-      const response = await fetch('/api/v1/ai/process-startup', {
+      const response = await fetch('/api/v1/ai-engine/process-startup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -403,7 +403,7 @@ export class AIService {
     const startTime = Date.now();
 
     try {
-      const response = await fetch(`/api/v1/ai/status/${generationId}`);
+      const response = await fetch(`/api/v1/ai-engine/status/${generationId}`);
       const result = await response.json();
 
       if (!response.ok) {
@@ -441,7 +441,7 @@ export class AIService {
     const startTime = Date.now();
 
     try {
-      const response = await fetch(`/api/v1/ai/regenerate/${field}`, {
+      const response = await fetch(`/api/v1/ai-engine/regenerate/${field}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ startup_id: startupId, context }),
@@ -488,7 +488,7 @@ export class AIService {
 
     try {
       const query = industry ? `?industry=${encodeURIComponent(industry)}` : '';
-      const response = await fetch(`/api/v1/ai/regulatory/${countryCode}${query}`);
+      const response = await fetch(`/api/v1/ai-engine/regulatory/${countryCode}${query}`);
       const result = await response.json();
 
       if (!response.ok) {

@@ -239,7 +239,7 @@ export const aiStartupApi = {
       status: string;
       estimated_time: number;
       message: string;
-    }>('/ai/process-startup', {
+    }>('/ai-engine/process-startup', {
       method: 'POST',
       body: JSON.stringify(data),
     }),
@@ -298,19 +298,19 @@ export const aiStartupApi = {
       };
       created_at: string;
       completed_at?: string;
-    }>(`/ai/status/${generationId}`),
+    }>(`/ai-engine/status/${generationId}`),
 
   regenerateField: (field: string, data: {
     startup_id: string;
     context?: string;
   }) =>
-    apiRequest<any>(`/ai/regenerate/${field}`, {
+    apiRequest<any>(`/ai-engine/regenerate/${field}`, {
       method: 'POST',
       body: JSON.stringify(data),
     }),
 
   listIndustries: () =>
-    apiRequest<{ industries: any[] }>('/ai/industries'),
+    apiRequest<{ industries: any[] }>('/ai-engine/industries'),
 
   getRegulatoryRequirements: (countryCode: string, industry?: string) => {
     const query = industry ? `?industry=${encodeURIComponent(industry)}` : '';
@@ -318,7 +318,7 @@ export const aiStartupApi = {
       country: string;
       industry?: string;
       requirements: any[];
-    }>(`/ai/regulatory/${countryCode}${query}`);
+    }>(`/ai-engine/regulatory/${countryCode}${query}`);
   },
 };
 

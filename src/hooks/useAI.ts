@@ -543,7 +543,7 @@ export function useStartupEngine(): UseStartupEngineResult {
     setStatus('processing');
 
     try {
-      const response = await fetch('/api/v1/ai/process-startup', {
+      const response = await fetch('/api/v1/ai-engine/process-startup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -569,7 +569,7 @@ export function useStartupEngine(): UseStartupEngineResult {
   const pollStatus = useCallback(async (genId: string) => {
     const checkStatus = async () => {
       try {
-        const response = await fetch(`/api/v1/ai/status/${genId}`);
+        const response = await fetch(`/api/v1/ai-engine/status/${genId}`);
         const result = await response.json();
 
         if (!response.ok) {
@@ -621,7 +621,7 @@ export function useStartupEngine(): UseStartupEngineResult {
 
   const regenerateField = useCallback(async (field: string, startupId: string, context?: string) => {
     try {
-      const response = await fetch(`/api/v1/ai/regenerate/${field}`, {
+      const response = await fetch(`/api/v1/ai-engine/regenerate/${field}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ startup_id: startupId, context }),
