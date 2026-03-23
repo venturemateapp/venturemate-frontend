@@ -359,12 +359,7 @@ export default function HomePage() {
               Describe your idea once. Get everything you need to build, register, launch, and grow, all from one calm dashboard.
             </Typography>
             
-            <Stack 
-              direction={{ xs: "column", sm: "row" }} 
-              spacing={2} 
-              justifyContent="center"
-              sx={{ mb: 6 }}
-            >
+            <Box sx={{ mb: 6 }}>
               <GradientButton
                 onClick={() => navigate('/signup')}
                 variant="primary"
@@ -373,10 +368,7 @@ export default function HomePage() {
               >
                 Start free
               </GradientButton>
-              <GradientButton variant="outline" size="lg">
-                Watch demo
-              </GradientButton>
-            </Stack>
+            </Box>
 
             {/* Trust Badges */}
             <Stack 
